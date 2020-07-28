@@ -1,0 +1,16 @@
+:root, [data-theme='default'] {
+  --color-light: #fff;
+  --color-dark: #000;
+  --color-primary: #d74894;
+  --color-primary-light: #d0a6ae;
+  --color-secondary: #89cff0;
+  --color-gray: #5a5a5a;
+  --shadow: 0px 10px 25px rgba(0,0,0,0.1);
+  /*contrast*/
+  --color-bg: white;
+  --color-contrast-lower: hsl(0, 0%, 95%);
+  --color-contrast-low: hsl(240, 1%, 83%);
+  --color-contrast-medium: hsl(240, 1%, 48%);
+  --color-contrast-high: hsl(240, 4%, 20%);
+  --color-contrast-higher: black;
+}

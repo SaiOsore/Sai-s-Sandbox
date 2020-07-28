@@ -1,0 +1,1 @@
+export const SHOW_FOLDER = 'SHOW_FOLDER';
