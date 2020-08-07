@@ -1,16 +1,16 @@
 import React from 'react';
 import Aside from '../../components/nav/Aside';
-import Folder from '../../components/folder/Folder';
+import Folders from '../../components/folder/Folders';
+import MainBanner from '../../components/banner/MainBanner';
 import { 
   HomeStyled, 
   HomeWrapper,
   GridPattern 
 } from './HomeStyled';
-
 import { showFolder } from '../../actions/index';
 import { connect } from 'react-redux';
 
-const Home = ({ showFolder, folders }) => {
+const Home = ({ showFolder }) => {
 
   const items = [
     {
@@ -29,25 +29,11 @@ const Home = ({ showFolder, folders }) => {
     },
   ];
 
-  const Folders = Object.entries(folders).map(([key, thread]) => {
-    return (
-      thread.showed && 
-        <Folder 
-          key={key}
-          id={thread.id}
-          folderTheme={thread.folderTheme}
-          onClose={() => {
-            showFolder(key);
-          }}
-        />
-      )
-  });
-
   return (
     <HomeStyled>
       <HomeWrapper />
       <GridPattern />
-      <Aside 
+      <Aside
         items={items}
         onClick={(e) => {
           e.preventDefault();
@@ -56,20 +42,16 @@ const Home = ({ showFolder, folders }) => {
           }
         }}
       />
-      {Folders}
+      <Folders />
+      <MainBanner />
     </HomeStyled>
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    folders: state.folders,
-  }
-}
 const mapDispatchToProps = (dispatch) => {
   return {
     showFolder: (id)=>{dispatch(showFolder(id))},
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(null, mapDispatchToProps)(Home);

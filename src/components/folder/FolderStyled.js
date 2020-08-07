@@ -17,6 +17,8 @@ export const FolderStyled = styled.section`
   height: 50vh;
   background: ${colorVariables.light};
   border: 2px solid ${colorVariables.dark};
+  box-shadow: ${colorVariables.shadow};
+  z-index: 10;
 `;
 
 const headerSize = '42px';

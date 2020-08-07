@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import Button from '../buttons/Button';
-import { colorVariables } from '../../theme/variables';
+import { colorVariables, device } from '../../theme/variables';
 
 export const HeaderStyled = styled.header`
   position: absolute;
@@ -15,10 +15,18 @@ export const HeaderStyled = styled.header`
   justify-content: space-between;
   padding: 0 3rem;
   border-bottom: 2px solid ${colorVariables.dark};
+  ${device.mobileL} {
+    padding: 0 2rem;
+  }
 `;
 
 export const HeaderLeft = styled.div`
   display: flex;
+  align-items: center;
+  width: 100%;
+  ${device.tablet} {
+   justify-content: space-between;
+  }
 `;
 
 export const Logo = styled.div`
@@ -26,7 +34,11 @@ export const Logo = styled.div`
 `;
 
 export const HeaderNav = styled.nav`
-
+  ${(props) => props.RightNav && css`
+    ${device.tablet} {
+      display: none;
+    }
+  `};
 `;
 
 export const HeaderList = styled.ul`
@@ -36,9 +48,12 @@ export const HeaderList = styled.ul`
 
 export const HeaderItem = styled.li`
   position: relative;
-  margin-right: 2rem;
+  margin-right: 10px;
   &:last-child {
     margin-right: 0;
+  }
+  ${device.mobileL} {
+    margin-right: 5px;
   }
 `;
 
@@ -51,5 +66,5 @@ export const HeaderButton = styled(Button)`
 `;
 
 export const HeaderTime = styled.span`
-  
+  white-space: nowrap;
 `;

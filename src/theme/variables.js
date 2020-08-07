@@ -8,6 +8,7 @@ export const colorVariables = {
   primaryLight: 'var(--color-primary-light)',
   secondary: 'var(--color-secondary)',
   gray: 'var(--color-gray)',
+  shadow: 'var(--shadow)',
 };
 
 export const fontVariables = {

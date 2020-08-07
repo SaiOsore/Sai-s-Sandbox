@@ -4,6 +4,7 @@ import { colorVariables } from '../../theme/variables';
 export const HomeStyled = styled.div`
   position: relative;
   height: 100vh;
+  overflow: hidden;
 `;
 
 export const HomeWrapper = styled.div`

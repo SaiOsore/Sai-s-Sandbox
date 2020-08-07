@@ -111,7 +111,7 @@ const toggleDropdown = (e) => {
           </HeaderList>
         </HeaderNav>
       </HeaderLeft>
-      <HeaderNav>
+      <HeaderNav RightNav>
         <HeaderList>
           <HeaderItem>
             {email}

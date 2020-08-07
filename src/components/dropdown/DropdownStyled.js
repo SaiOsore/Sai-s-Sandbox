@@ -9,6 +9,7 @@ export const DropdownStyled = styled.ul`
   width: 120px;
   background-color: ${colorVariables.light};
   border: 2px solid ${colorVariables.dark};
+  box-shadow: ${colorVariables.shadow};
 `;
 
 export const DropdownItem = styled.li`
