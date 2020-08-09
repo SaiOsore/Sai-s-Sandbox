@@ -26,6 +26,7 @@ const Home = ({ showFolder }) => {
     {
       src: '#',
       title: 'About',
+      id: 'about',
     },
   ];
 

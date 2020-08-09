@@ -10,18 +10,21 @@ const initialState = {
     items: [
       {
         id: '001',
-        icon: 'ICON',
+        icon: 'img/projects/brush.svg',
         title: 'First Project',
+        src: '#',
       },
       {
         id: '002',
-        icon: 'ICON',
+        icon: 'img/projects/brush.svg',
         title: 'Second Project',
+        src: '#',
       },
       {
         id: '003',
-        icon: 'ICON',
+        icon: 'img/projects/brush.svg',
         title: 'Third Project',
+        src: '#',
       },
     ],
   },
@@ -32,20 +35,28 @@ const initialState = {
     items: [
       {
         id: '004',
-        icon: 'ICON',
+        icon: 'img/projects/brush.svg',
         title: 'First Photo Pr',
+        src: '#',
       },
       {
         id: '005',
-        icon: 'ICON',
+        icon: 'img/projects/brush.svg',
         title: 'Second Photo Pr',
+        src: '#',
       },
       {
         id: '006',
-        icon: 'ICON',
+        icon: 'img/projects/brush.svg',
         title: 'Third Photo Pr',
+        src: '#',
       },
     ],
+  },
+  'about': {
+    id: 'about',
+    showed: false,
+    folderTheme: 'Second',
   },
 }
 

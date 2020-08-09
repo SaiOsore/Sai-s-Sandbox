@@ -12,6 +12,7 @@ const Folders = ({ showFolder, folders }) => {
         <Folder 
           key={key}
           id={thread.id}
+          data={thread.items}
           folderTheme={thread.folderTheme}
           onClose={() => {
             showFolder(key);

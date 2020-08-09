@@ -13,7 +13,6 @@ export const MainBannerHeader = styled.header`
 `;
 
 export const MainBannerHeaderWrapper = styled.div`
-  width: 66vw;
   display: grid;
   margin: auto;
   grid-template-columns: 1fr 1fr 1fr 1fr;

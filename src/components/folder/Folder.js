@@ -4,6 +4,10 @@ import {
   FolderHeader,
   FolderTitle,
   FolderCloseBtn,
+  FolderList,
+  FolderItem,
+  FolderLink,
+  FolderImg
 } from './FolderStyled';
 
 const Folder = (props) => {
@@ -18,8 +22,25 @@ const Folder = (props) => {
     display,
     onClose,
     folderTheme,
+    data,
   } = props;
 
+  let dataMarkup;
+
+  if(data) {
+    dataMarkup = data.map((item, index) => {
+      return (
+        <FolderItem key={index}>
+          <FolderImg src={item.icon} alt={item.title} />
+          <FolderLink href={item.src} title={item.title}>
+            <span>
+              {item.title}
+            </span>
+          </FolderLink>
+        </FolderItem>
+      )
+    });
+  }
 
   return (
     <FolderStyled
@@ -40,6 +61,12 @@ const Folder = (props) => {
           X
         </FolderCloseBtn>
       </FolderHeader>
+      <div>
+        { children }
+        <FolderList>
+          { dataMarkup }
+        </FolderList>
+      </div>
     </FolderStyled>
   );
 };
