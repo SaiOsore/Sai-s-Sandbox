@@ -4,6 +4,7 @@ import {
 
 const initialState = {
   'projects': {
+    type: 'projects',
     id: 'projects',
     showed: true,
     folderTheme: 'First',
@@ -29,6 +30,7 @@ const initialState = {
     ],
   },
   'photos': {
+    type: 'projects',
     id: 'photos',
     showed: false,
     folderTheme: 'Second',
@@ -54,6 +56,7 @@ const initialState = {
     ],
   },
   'about': {
+    type: 'about',
     id: 'about',
     showed: false,
     folderTheme: 'Second',

@@ -2,12 +2,12 @@ import styled from 'styled-components';
 import { get } from 'lodash';
 import { colorVariables } from '../../theme/variables';
 
-export const FolderList = styled.ul`
+export const ProjectsList = styled.ul`
   display: grid;
   grid-template-columns: auto auto auto;
 `;
 
-export const FolderItem = styled.li`
+export const ProjectsItem = styled.li`
   display: inline-block;
   width: auto;
   position: relative;
@@ -16,12 +16,12 @@ export const FolderItem = styled.li`
   text-align: center;
 `;
 
-export const FolderLink = styled.a`
+export const ProjectsLink = styled.a`
   display: block;
   color: ${colorVariables.dark};
 `;
 
-export const FolderImg = styled.img`
+export const ProjectsImg = styled.img`
   width: 2rem;
   height: 3rem;
 `;
