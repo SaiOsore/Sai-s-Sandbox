@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { get } from 'lodash';
 import { colorVariables } from '../../theme/variables';
+import Link from '../links/Link/Link';
 
 export const ProjectsList = styled.ul`
   display: grid;
@@ -16,7 +17,7 @@ export const ProjectsItem = styled.li`
   text-align: center;
 `;
 
-export const ProjectsLink = styled.a`
+export const ProjectsLink = styled(Link)`
   display: block;
   color: ${colorVariables.dark};
 `;

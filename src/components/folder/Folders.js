@@ -8,13 +8,16 @@ import { connect } from 'react-redux';
 const Folders = ({ showFolder, folders }) => {
 
   const FoldersMarkup = Object.entries(folders).map(([key, thread]) => {
+
     let child;
+
     if(thread.type === 'projects') {
       child = <Projects data={thread.items} />;
-    } else {
-      child = 'Hello Sai';
+    } 
+    if(thread.type === 'about') {
+      child = 'SAI';
     }
-    
+
     return (
       thread.showed && 
         <Folder 
@@ -24,9 +27,7 @@ const Folders = ({ showFolder, folders }) => {
           onClose={() => {
             showFolder(key);
           }}
-          children={
-            child
-          }
+          children={child}
         />
       )
   });

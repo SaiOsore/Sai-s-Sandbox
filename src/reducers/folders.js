@@ -12,8 +12,8 @@ const initialState = {
       {
         id: '001',
         icon: 'img/projects/brush.svg',
-        title: 'First Project',
-        src: '#',
+        title: 'Drawing',
+        src: '/drawing',
       },
       {
         id: '002',
@@ -73,7 +73,6 @@ const foldersReducer = (state = initialState, action) => {
     default :
       return state;
   }
-
 }
 
 export default foldersReducer;

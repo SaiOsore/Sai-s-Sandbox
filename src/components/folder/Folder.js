@@ -4,10 +4,7 @@ import {
   FolderHeader,
   FolderTitle,
   FolderCloseBtn,
-  FolderList,
-  FolderItem,
-  FolderLink,
-  FolderImg
+  FolderContainer
 } from './FolderStyled';
 
 const Folder = (props) => {
@@ -22,7 +19,6 @@ const Folder = (props) => {
     display,
     onClose,
     folderTheme,
-    data,
   } = props;
 
   return (
@@ -44,7 +40,9 @@ const Folder = (props) => {
           X
         </FolderCloseBtn>
       </FolderHeader>
-      { children }
+      <FolderContainer>
+        { children }
+      </FolderContainer>
     </FolderStyled>
   );
 };

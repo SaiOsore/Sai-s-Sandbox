@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Dropdown from '../dropdown/Dropdown';
+import Logo from '../logo/Logo';
 import { 
   HeaderStyled,
   HeaderLeft,
-  Logo,
   HeaderNav,
   HeaderList,
   HeaderItem,
@@ -76,9 +76,7 @@ const toggleDropdown = (e) => {
   return (
     <HeaderStyled>
       <HeaderLeft>
-        <Logo>
-          Sai's Sandbox
-        </Logo>
+        <Logo />
         <HeaderNav>
           <HeaderList>
             <HeaderItem>

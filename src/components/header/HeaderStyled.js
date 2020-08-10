@@ -29,10 +29,6 @@ export const HeaderLeft = styled.div`
   }
 `;
 
-export const Logo = styled.div`
-  margin-right: 2rem;
-`;
-
 export const HeaderNav = styled.nav`
   ${(props) => props.RightNav && css`
     ${device.tablet} {
