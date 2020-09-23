@@ -8,15 +8,14 @@ import {
 } from './DrawingStyled';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { BsBrush } from "react-icons/bs";
-import { RiEraserFill, RiDeleteBin7Fill, RiArrowGoBackLine } from "react-icons/ri";
+import { RiEraserFill, RiDeleteBin7Fill, RiArrowGoBackLine, RiSave3Fill } from "react-icons/ri";
 
 const Drawing = (props) => {
 
   /*initial parameters for app*/
   const initialSize = 10;
   const initialColor = 'black';
-
-  const [width, height] = useWindowSize(1.5);
+  const initialDivider = 1.5;
 
   const canvasRef = useRef(null);
   const inputColorRef = useRef(null);
@@ -26,6 +25,8 @@ const Drawing = (props) => {
   const [color, setColor] = useState(initialColor);
   const [size, setSize] = useState(initialSize);
   const [points, setPoints] = useState([]);
+  const [width, height] = useWindowSize(initialDivider);
+  const [canvasImg, setCanvasImg] = useState(null);
 
   const drawLine = (x1, y1, x2, y2) => {
     const canvas = canvasRef.current;
@@ -59,6 +60,7 @@ const Drawing = (props) => {
   const paint = useCallback(
     (event) => {
       if(isPainting) {
+        const canvas = canvasRef.current;
         let newX = event.offsetX;
         let newY = event.offsetY;
         drawCircle(newX, newY);
@@ -66,6 +68,7 @@ const Drawing = (props) => {
         setX(newX);
         setY(newY);
         setPoints(points => [...points, {x: newX, y: newY, size: size, color: color, mode: "draw"}]);
+        setCanvasImg(canvas.toDataURL('image/png'));
       }
     },
     [isPainting, x, y, color, size, drawCircle, drawLine]
@@ -119,6 +122,12 @@ const Drawing = (props) => {
   const eraser = () => {
     setSize(initialSize * 4);
     setColor('white');
+  }
+
+  const saveImg = () => {
+    localStorage.removeItem('canvasImg');
+    localStorage.setItem('canvasImg', canvasImg);
+    setCanvasImg(localStorage.getItem('canvasImg'));
   }
 
   const redrawCanvas = () => {
@@ -187,22 +196,26 @@ const Drawing = (props) => {
         height={height}
       />
       <ButtonsContainer>
-        <Button onClick={undoLast}>
+        <Button onClick={undoLast} title={'undo'}>
           <RiArrowGoBackLine />
         </Button>
-        <Button onClick={brush}>
+        <Button onClick={brush} title={'brush'}>
           <BsBrush />
         </Button>
-        <Button onClick={eraser}>
+        <Button onClick={eraser} title={'eraser'}>
           <RiEraserFill />
         </Button>
-        <Button onClick={clearCanvas}>
+        <Button onClick={clearCanvas} title={'clear all'}>
           <RiDeleteBin7Fill />
+        </Button>
+        <Button onClick={saveImg} title={'save image'}>
+          <RiSave3Fill />
         </Button>
         <ColorInput 
           ref={inputColorRef} 
           type="color" 
           onChange={changeColor} 
+          title={'color picker'}
         />
       </ButtonsContainer>
     </DrawingStyled>

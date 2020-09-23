@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colorVariables } from '../../theme/variables';
+import { colorVariables, device } from '../../theme/variables';
 
 export const DrawingStyled = styled.div`
   position: relative;
@@ -24,6 +24,7 @@ export const ButtonsContainer = styled.div`
   justify-content: center;
 `;
 
+/*buttons and inputs main styles*/
 const ButtonStyled = {
   width: '50px',
   height: '50px',
@@ -32,14 +33,25 @@ const ButtonStyled = {
   padding: '0',
 }
 
+const ButtonStyledMini = {
+  width: '35px',
+  height: '35px',
+}
+
 export const Button = styled.button`
   ${ButtonStyled};
   & svg {
     width: 30px;
     height: 30px;
   }
+  ${device.mobileL} {
+    ${ButtonStyledMini};
+  }
 `;
 
 export const ColorInput = styled.input`
   ${ButtonStyled};
+  ${device.mobileL} {
+    ${ButtonStyledMini};
+  }
 `;
