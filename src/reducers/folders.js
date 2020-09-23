@@ -59,7 +59,7 @@ const initialState = {
     type: 'about',
     id: 'about',
     showed: false,
-    folderTheme: 'Second',
+    folderTheme: 'Third',
   },
 }
 

@@ -19,9 +19,9 @@ const Header = () => {
     setDate(new Date());
   }
 
-  const [date, setDate] = React.useState(new Date());
+  const [date, setDate] = useState(new Date());
 
-  React.useEffect(() => {
+  useEffect(() => {
     let timerID = setInterval(() => tick(), 1000 );
     return function cleanup() {
       clearInterval(timerID);

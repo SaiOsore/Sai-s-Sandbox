@@ -6,6 +6,7 @@ import Button  from '../buttons/Button';
 const FolderVar = {
   First: { top: '200px', left: '50%' },
   Second: { top: '30%', left: '35%' },
+  Third: { top: '15%', left: '55%' },
 }
 
 export const FolderStyled = styled.section`
@@ -19,6 +20,7 @@ export const FolderStyled = styled.section`
   border: 2px solid ${colorVariables.dark};
   box-shadow: ${colorVariables.shadow};
   z-index: 10;
+  cursor: crosshair;
 `;
 
 const headerSize = '42px';

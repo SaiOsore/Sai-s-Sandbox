@@ -18,11 +18,11 @@ const Home = ({ showFolder }) => {
       title: 'Projects',
       id: 'projects',
     },
-    {
-      src: '#',
-      title: 'Photos',
-      id: 'photos',
-    },
+    // {
+    //   src: '#',
+    //   title: 'Photos',
+    //   id: 'photos',
+    // },
     {
       src: '#',
       title: 'About',

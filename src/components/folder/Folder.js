@@ -31,6 +31,7 @@ const Folder = (props) => {
       id={id}
       display={display}
       folderTheme={folderTheme}
+      draggable={true}
     >
       <FolderHeader>
         <FolderTitle>
@@ -41,7 +42,7 @@ const Folder = (props) => {
         </FolderCloseBtn>
       </FolderHeader>
       <FolderContainer>
-        { children }
+        {children}
       </FolderContainer>
     </FolderStyled>
   );

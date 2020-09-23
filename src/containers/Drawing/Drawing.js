@@ -2,64 +2,93 @@ import React, { useRef, useEffect, useCallback, useState } from 'react';
 import { 
   DrawingStyled,
   Canvas,
+  ButtonsContainer,
+  Button,
+  ColorInput
 } from './DrawingStyled';
-import useCanvas from '../../hooks/useCanvas';
-
-
-function resizeCanvas(canvas) {
-  const { width, height } = canvas.getBoundingClientRect();
-
-  if(canvas.width !== width || canvas.height !== height) {
-    const { devicePixelRatio: ratio = 1 } = window;
-    const context = canvas.getContext('2d');
-    canvas.width = width * ratio;
-    canvas.height = height * ratio;
-    context.scale(ratio, ratio);
-    return true;
-  }
-
-  return false;
-}
+import { useWindowSize } from '../../hooks/useWindowSize';
+import { BsBrush } from "react-icons/bs";
+import { RiEraserFill, RiDeleteBin7Fill, RiArrowGoBackLine } from "react-icons/ri";
 
 const Drawing = (props) => {
 
+  /*initial parameters for app*/
+  const initialSize = 10;
+  const initialColor = 'black';
+
+  const [width, height] = useWindowSize(1.5);
+
   const canvasRef = useRef(null);
+  const inputColorRef = useRef(null);
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
   const [isPainting, setIsPainting] = useState(false);
+  const [color, setColor] = useState(initialColor);
+  const [size, setSize] = useState(initialSize);
+  const [points, setPoints] = useState([]);
 
-  const startPaint = useCallback((event: MouseEvent) => {
+  const drawLine = (x1, y1, x2, y2) => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = size;
+    ctx.stroke();
+  };
+
+  const drawCircle = (x, y) => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    ctx.beginPath();
+    ctx.arc(x, y, size / 2, 0, Math.PI * 2);
+    ctx.fillStyle = color;
+    ctx.fill();
+  };
+
+  const startPaint = useCallback((event) => {
     setIsPainting(true);
-    let coordinates = getCoordinates(event);
-    setX(coordinates[0]);
-    setY(coordinates[1]);
-  }, []);
+    let newX = event.offsetX;
+    let newY = event.offsetY;
+    setX(newX);
+    setY(newY);
+    setPoints(points => [...points, {x: newX, y: newY, size: size, color: color, mode: "begin"}]);
+  }, [color, size]);
 
   const paint = useCallback(
-    (event: MouseEvent) => {
-      if (isPainting) {
-        let [newX, newY] = getCoordinates(event);
+    (event) => {
+      if(isPainting) {
+        let newX = event.offsetX;
+        let newY = event.offsetY;
+        drawCircle(newX, newY);
         drawLine(x, y, newX, newY);
         setX(newX);
         setY(newY);
+        setPoints(points => [...points, {x: newX, y: newY, size: size, color: color, mode: "draw"}]);
       }
     },
-    [isPainting, x, y]
+    [isPainting, x, y, color, size, drawCircle, drawLine]
   );
 
-  const exitPaint = useCallback(() => {
+  const exitPaint = useCallback((event) => {
+    let newX = event.offsetX;
+    let newY = event.offsetY;
+    setPoints(points => [...points, {x: newX, y: newY, size: size, color: color, mode: "end"}]);
     setIsPainting(false);
-  }, []);
+    setX(undefined);
+    setY(undefined);
+  }, [color, size]);
 
   useEffect(() => {
-    console.log("mount");
-    const canvas: HTMLCanvasElement = canvasRef.current;
+    /*mount painting*/
+    const canvas = canvasRef.current;
     canvas.addEventListener("mousedown", startPaint);
     canvas.addEventListener("mousemove", paint);
     canvas.addEventListener("mouseup", exitPaint);
     canvas.addEventListener("mouseleave", exitPaint);
     return () => {
-      console.log("umount");
+    /*unmount painting*/
       canvas.removeEventListener("mousedown", startPaint);
       canvas.removeEventListener("mousemove", paint);
       canvas.removeEventListener("mouseup", exitPaint);
@@ -67,36 +96,115 @@ const Drawing = (props) => {
     };
   }, [startPaint, exitPaint, paint]);
 
-  const getCoordinates = (event: MouseEvent) => {
-    if (["mousedown", "mousemove"].includes(event.type)) {
-      const canvas: HTMLCanvasElement = canvasRef.current;
+  const getCoordinates = (event) => {
+    if(["mousedown", "mousemove"].includes(event.type)) {
+      const canvas = canvasRef.current;
       return [event.pageX - canvas.offsetLeft, event.pageY - canvas.offsetTop];
     }
   };
 
-  const drawLine = (firstX, firstY, secondX, secondY) => {
-    const canvas: HTMLCanvasElement = canvasRef.current;
-    const context = canvas.getContext("2d");
-    context.strokeStyle = "red";
-    context.lineJoin = "round";
-    context.lineWidth = 5;
+  const clearCanvas = () => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    setPoints(points => []);
+  }
 
-    context.beginPath();
-    context.moveTo(secondX, secondY);
-    context.lineTo(firstX, firstY);
-    context.closePath();
+  const brush = () => {
+    setSize(initialSize);
+    setColor(initialColor);
+    changeColor();
+  }
 
-    context.stroke();
-  };
+  const eraser = () => {
+    setSize(initialSize * 4);
+    setColor('white');
+  }
+
+  const redrawCanvas = () => {
+
+    if(points.length === 0) { 
+      console.log('no points'); 
+      return
+    }
+
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for(let i = 0; i < points.length; i++) {
+      let pt = points[i];
+      let begin = false;
+
+      if(ctx.lineWidth !== pt.size) {
+        ctx.lineWidth = pt.size;
+        begin = true;
+      }
+
+      if(ctx.strokeStyle !== pt.color) {
+        ctx.strokeStyle = pt.color;
+        begin = true;
+      }
+
+      if(pt.mode === "begin" && begin) {
+        ctx.beginPath();
+        ctx.moveTo(pt.x, pt.y);
+      }
+
+      ctx.lineTo(pt.x, pt.y);
+      
+      if(pt.mode === "end" || (i === points.length - 1)) {
+        ctx.stroke();
+      }
+    }
+
+    ctx.stroke();
+  }
+
+  const undoLast = () => {
+    if(points.length === 0) {
+      console.log('undo return');
+      return;
+    } else {
+      points.pop();
+      setPoints(points => [...points]);
+      redrawCanvas();
+      console.log('redraw');
+    }
+  }
+
+  const changeColor = () => {
+    let newColor = inputColorRef.current.value;
+    setColor(newColor);
+  }
 
 
   return (
     <DrawingStyled>
       <Canvas
         ref={canvasRef} 
-        width={window.innerWidth} 
-        height={window.innerHeight}
+        width={width} 
+        height={height}
       />
+      <ButtonsContainer>
+        <Button onClick={undoLast}>
+          <RiArrowGoBackLine />
+        </Button>
+        <Button onClick={brush}>
+          <BsBrush />
+        </Button>
+        <Button onClick={eraser}>
+          <RiEraserFill />
+        </Button>
+        <Button onClick={clearCanvas}>
+          <RiDeleteBin7Fill />
+        </Button>
+        <ColorInput 
+          ref={inputColorRef} 
+          type="color" 
+          onChange={changeColor} 
+        />
+      </ButtonsContainer>
     </DrawingStyled>
   );
 }
