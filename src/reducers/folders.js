@@ -18,8 +18,8 @@ const initialState = {
       {
         id: '002',
         icon: 'img/projects/brush.svg',
-        title: 'Second Project',
-        src: '#',
+        title: 'Weather',
+        src: '/weather',
       },
       {
         id: '003',

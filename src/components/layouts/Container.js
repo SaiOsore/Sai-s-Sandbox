@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { headerHeight } from '../../theme/variables';
 
 const ContainerStyled = styled.div`
   display: flex;
@@ -7,6 +8,7 @@ const ContainerStyled = styled.div`
   width: 100%;
   margin: 0 auto;
   flex: 1 0 auto;
+  padding-top: ${headerHeight};
 `;
 
 const Container = (props) => {

@@ -47,10 +47,12 @@ const Header = () => {
       {
         src: '#',
         title: 'About',
+        id: 'about',
       },
       {
         src: '#',
         title: 'Projects',
+        id: 'projects',
       },
     ],
     Contact: [
@@ -59,8 +61,9 @@ const Header = () => {
         title: 'Email',
       },
       {
-        src: '#',
-        title: 'Instagram',
+        target: '_blanc',
+        src: 'https://saiosore.github.io/',
+        title: 'Portfolio',
       },
     ],
   };

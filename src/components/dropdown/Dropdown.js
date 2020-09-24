@@ -19,7 +19,7 @@ const Dropdown = (props) => {
 
   const ItemsMarkup = items.map((item, index) => (
     <DropdownItem key={index}>
-      <DropdownLink href={item.src} title={item.title}>
+      <DropdownLink target={item.target} href={item.src} title={item.title}>
         {item.title}
       </DropdownLink>
     </DropdownItem>

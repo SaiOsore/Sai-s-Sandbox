@@ -8,12 +8,15 @@ export const colorVariables = {
   primaryLight: 'var(--color-primary-light)',
   secondary: 'var(--color-secondary)',
   gray: 'var(--color-gray)',
+  alert: 'var(--color-alert)',
   shadow: 'var(--shadow)',
 };
 
 export const fontVariables = {
   primary: 'Lato, sans-serif',
 };
+
+export const headerHeight = '40px';
 
 export const sizeVariables = {
   xxs: { size: '11px', spacing: '0px' },

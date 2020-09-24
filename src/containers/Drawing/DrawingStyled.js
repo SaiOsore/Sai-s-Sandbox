@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colorVariables, device } from '../../theme/variables';
+import { colorVariables, device, headerHeight } from '../../theme/variables';
 
 export const DrawingStyled = styled.div`
   position: relative;
@@ -9,7 +9,7 @@ export const DrawingStyled = styled.div`
   justify-content: center;
   padding-top: 40px;
   background-color: pink;
-  min-height: 100vh;
+  min-height: calc(100vh - ${headerHeight});
 `;
 
 export const Canvas = styled.canvas`
@@ -22,6 +22,7 @@ export const ButtonsContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
 `;
 
 /*buttons and inputs main styles*/

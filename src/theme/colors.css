@@ -5,6 +5,7 @@
   --color-primary-light: #d0a6ae;
   --color-secondary: #89cff0;
   --color-gray: #5a5a5a;
+  --color-alert: red;
   --shadow: -8px 10px 5px 0px rgba(0,0,0,0.75);
   /*contrast*/
   --color-bg: white;

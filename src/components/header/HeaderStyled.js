@@ -1,13 +1,13 @@
 import styled, {css} from 'styled-components';
 import Button from '../buttons/Button';
-import { colorVariables, device } from '../../theme/variables';
+import { colorVariables, device, headerHeight } from '../../theme/variables';
 
 export const HeaderStyled = styled.header`
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 40px;
+  height: ${headerHeight};
   background-color: ${colorVariables.secondary};
   z-index: 20;
   display: flex;

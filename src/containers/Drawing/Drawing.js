@@ -8,7 +8,12 @@ import {
 } from './DrawingStyled';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { BsBrush } from "react-icons/bs";
-import { RiEraserFill, RiDeleteBin7Fill, RiArrowGoBackLine, RiSave3Fill } from "react-icons/ri";
+import { 
+  RiEraserFill, 
+  RiDeleteBin7Fill, 
+  RiArrowGoBackLine, 
+  RiSave3Fill 
+} from "react-icons/ri";
 
 const Drawing = (props) => {
 
@@ -196,20 +201,11 @@ const Drawing = (props) => {
         height={height}
       />
       <ButtonsContainer>
-        <Button onClick={undoLast} title={'undo'}>
-          <RiArrowGoBackLine />
-        </Button>
         <Button onClick={brush} title={'brush'}>
           <BsBrush />
         </Button>
         <Button onClick={eraser} title={'eraser'}>
           <RiEraserFill />
-        </Button>
-        <Button onClick={clearCanvas} title={'clear all'}>
-          <RiDeleteBin7Fill />
-        </Button>
-        <Button onClick={saveImg} title={'save image'}>
-          <RiSave3Fill />
         </Button>
         <ColorInput 
           ref={inputColorRef} 
@@ -217,6 +213,15 @@ const Drawing = (props) => {
           onChange={changeColor} 
           title={'color picker'}
         />
+        <Button onClick={undoLast} title={'undo'}>
+          <RiArrowGoBackLine />
+        </Button>
+        <Button onClick={clearCanvas} title={'clear all'}>
+          <RiDeleteBin7Fill />
+        </Button>
+        <Button onClick={saveImg} title={'save image'}>
+          <RiSave3Fill />
+        </Button>
       </ButtonsContainer>
     </DrawingStyled>
   );

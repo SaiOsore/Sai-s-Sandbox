@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { colorVariables } from '../../theme/variables';
+import { colorVariables, headerHeight } from '../../theme/variables';
 
 export const HomeStyled = styled.div`
   position: relative;
-  height: 100vh;
+  min-height: calc(100vh - ${headerHeight});
   overflow: hidden;
 `;
 

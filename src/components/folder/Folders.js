@@ -13,7 +13,7 @@ const Folders = ({ showFolder, folders }) => {
 
     if(thread.type === 'projects') {
       child = <Projects data={thread.items} />;
-    } 
+    }
     if(thread.type === 'about') {
       child = 'SAI';
     }

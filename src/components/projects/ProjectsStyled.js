@@ -20,6 +20,19 @@ export const ProjectsItem = styled.li`
 export const ProjectsLink = styled(Link)`
   display: block;
   color: ${colorVariables.dark};
+  &:hover {
+    color: ${colorVariables.primary};
+  }
+`;
+
+export const ProjectsIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  & svg {
+    width: 2rem;
+    height: 3rem;
+  }
 `;
 
 export const ProjectsImg = styled.img`
