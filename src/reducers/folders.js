@@ -24,8 +24,8 @@ const initialState = {
       {
         id: '003',
         icon: 'img/projects/brush.svg',
-        title: 'Third Project',
-        src: '#',
+        title: 'Birthdays',
+        src: '/birthdays',
       },
     ],
   },

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Dropdown from '../dropdown/Dropdown';
 import Logo from '../logo/Logo';
+import { formatTime, dateParser } from '../../helpers/helpers';
 import { 
   HeaderStyled,
   HeaderLeft,
@@ -15,11 +16,11 @@ import {
 const Header = () => {
 
 /*DATE and TIME*/
+  const [date, setDate] = useState(new Date());
+
   let tick = () => {
     setDate(new Date());
   }
-
-  const [date, setDate] = useState(new Date());
 
   useEffect(() => {
     let timerID = setInterval(() => tick(), 1000 );
@@ -28,18 +29,9 @@ const Header = () => {
     };
   });
 
-  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  const day = date.getDay();
-  const currentDay = days[day];
-  const hours = date.getHours();
-  let minutes = date.getMinutes();
-  if(minutes < 9) {
-    minutes = `0${minutes}`;
-  }
-
-  const currentDate = `${currentDay} ${hours}:${minutes}`;
-
+  const currentDate = dateParser(date, 'clock');
   const email = 'sai.osore@gmail.com';
+  const website = 'https://saiosore.github.io/';
 
 /*DATA*/
   const Lists = {
@@ -62,7 +54,7 @@ const Header = () => {
       },
       {
         target: '_blanc',
-        src: 'https://saiosore.github.io/',
+        src: `${website}`,
         title: 'Portfolio',
       },
     ],
