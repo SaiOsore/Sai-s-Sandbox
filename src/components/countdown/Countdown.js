@@ -23,11 +23,13 @@ const Countdown = ({ propsDate }) => {
   }, [state.seconds]);
 
   const setNewTime = () => {
-
     if(countdownDate) {
-
       const currentTime = new Date().getTime();
-      const distanceToDate = countdownDate - currentTime;
+      
+      let distanceToDate = countdownDate - currentTime;
+      if(countdownDate < currentTime) {
+        distanceToDate = distanceToDate * -1;
+      }
 
       let days = Math.floor(
         distanceToDate / (1000 * 60 * 60 * 24),
@@ -53,7 +55,7 @@ const Countdown = ({ propsDate }) => {
 
   return (
     <CountdownStyled>
-      { propsDate &&
+      { state.days &&
         <>
           <CountdownBlock>
             <CountdownNum>{state.days}</CountdownNum>

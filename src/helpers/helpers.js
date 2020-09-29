@@ -34,7 +34,7 @@ export  const dateParser = (date, type) => {
   } else if(type === 'clock') {
     currentDate = `${currentDay} ${hours}:${formatTime(minutes)}`;
   } else if(type === 'sort') {
-    currentDate = `${day}/${month}/${currentYear}`;
+    currentDate = `${year} ${month} ${day}`;
   } else {
     currentDate = `${day} ${currentMonth} ${currentYear}`;
   }
