@@ -16,7 +16,7 @@ const Birthdays = () => {
 
   const [data, setData] = useState(BirthdaysInfo);
   let sortedData = [...data];
-  const [closest, setClosest] = useState(data[0]);
+  const [closest, setClosest] = useState({});
   const [date, setDate] = useState(new Date());
   const currentDay = date.getDate();
   const currentMonth = date.getMonth();
