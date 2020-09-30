@@ -28,7 +28,7 @@ const Countdown = ({ propsDate }) => {
     const currentTime = new Date().getTime();
     let distanceToDate = countdownDate - currentTime;
 
-    /*If birthday from array will be in the next year,
+    /*If dates from array will be in the next year,
       convert difference in daysInTheYear(usually 366) - distanceToDate * -1*/
     if(countdownDate < currentTime) {
       const now = new Date();
@@ -36,7 +36,7 @@ const Countdown = ({ propsDate }) => {
       const daysInTheYear = (new Date(currentYear,11,31) - new Date(currentYear,0,0));
       /*Time from birthday to current time in ms*/
       distanceToDate = distanceToDate * -1;
-      /*We translate the time difference to the next birthday (next year), 
+      /*We translate the time difference to the next date (next year), 
         not the current one.*/
       const diff = daysInTheYear - distanceToDate;
       distanceToDate = diff;
