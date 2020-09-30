@@ -5,6 +5,7 @@ import {
   sizeVariables, 
   device, 
 } from '../../theme/variables';
+import { CountdownStyled } from '../../components/countdown/CountdownStyled';
 
 export const BirthdaysStyled = styled.div`
   position: relative;
@@ -14,6 +15,9 @@ export const BirthdaysStyled = styled.div`
   background: ${colorVariables.primaryLight};
   min-height: calc(100vh - ${headerHeight});
   flex-direction: column;
+  & ${CountdownStyled} {
+    min-height: 27vh;
+  }
 `;
 
 export const InfoContainer = styled.div`
@@ -22,13 +26,17 @@ export const InfoContainer = styled.div`
 
 export const AvatarContainer = styled.div`
   position: relative;
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
   border: 3px solid ${colorVariables.dark};
   border-radius: 50%;
   margin: 0 auto 1rem;
   background-color: ${colorVariables.primary};
   ${device.laptopL} {
+    width: 130px;
+    height: 130px;
+  };
+  ${device.tablet} {
     width: 100px;
     height: 100px;
   };
