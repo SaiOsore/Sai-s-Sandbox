@@ -11,6 +11,11 @@ export const formatTime = (time) => {
   return time < 10 ? `0${time}` : time;
 }
 
+export const convertMsToYears = (ms) => {
+  const age = Math.floor(ms / 31536000000);
+  return age;
+}
+
 export  const dateParser = (date, type) => {
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
@@ -33,8 +38,8 @@ export  const dateParser = (date, type) => {
     currentDate = Date.parse(date);
   } else if(type === 'clock') {
     currentDate = `${currentDay} ${hours}:${formatTime(minutes)}`;
-  } else if(type === 'sort') {
-    currentDate = `${year} ${month} ${day}`;
+  } else if(type === 'full') {
+    currentDate = `${day} / ${currentMonth} / ${year}`;
   } else {
     currentDate = `${day} ${currentMonth} ${currentYear}`;
   }

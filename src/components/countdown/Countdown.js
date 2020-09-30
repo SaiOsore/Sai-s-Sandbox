@@ -1,5 +1,5 @@
-import React, {useEffect, useState } from 'react';
-import { formatTime } from '../../helpers/helpers';
+import React, { useEffect, useState, useCallback } from 'react';
+import { formatTime, dateParser } from '../../helpers/helpers';
 import { 
   CountdownStyled,
   CountdownBlock,
@@ -11,47 +11,59 @@ const Countdown = ({ propsDate }) => {
 
   const [countdownDate, setCountdownDate] = useState(new Date(propsDate).getTime());
   const [state, setState] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
+    days: undefined,
+    hours: undefined,
+    minutes: undefined,
+    seconds: undefined,
   });
 
   useEffect(() => {
+    /*Rerender function will be delayed by the timeout*/
     let timer = setInterval(() => setNewTime(), 1000);
     return () => {clearInterval(timer);}
-  }, [state.seconds]);
+  }, [state.seconds, propsDate, countdownDate]);
 
-  const setNewTime = () => {
-    if(countdownDate) {
-      const currentTime = new Date().getTime();
-      
-      let distanceToDate = countdownDate - currentTime;
-      if(countdownDate < currentTime) {
-        distanceToDate = distanceToDate * -1;
-      }
+  const setNewTime = useCallback(() => {
+    setCountdownDate(new Date(propsDate).getTime());
+    const currentTime = new Date().getTime();
+    let distanceToDate = countdownDate - currentTime;
 
-      let days = Math.floor(
-        distanceToDate / (1000 * 60 * 60 * 24),
-      );
-      let hours = Math.floor(
-        (distanceToDate % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-      );
-      let minutes = Math.floor(
-        (distanceToDate % (1000 * 60 * 60)) / (1000 * 60),
-      );
-      let seconds = Math.floor(
-        (distanceToDate % (1000 * 60)) / 1000,
-      );
-
-      days = formatTime(days);
-      hours = formatTime(hours);
-      minutes = formatTime(minutes);
-      seconds = formatTime(seconds);
-
-      setState({ days: days, hours: hours, minutes, seconds });
+    /*If birthday from array will be in the next year,
+      convert difference in daysInTheYear(usually 366) - distanceToDate * -1*/
+    if(countdownDate < currentTime) {
+      const now = new Date();
+      const currentYear = now.getFullYear();
+      const daysInTheYear = (new Date(currentYear,11,31) - new Date(currentYear,0,0));
+      /*Time from birthday to current time in ms*/
+      distanceToDate = distanceToDate * -1;
+      /*We translate the time difference to the next birthday (next year), 
+        not the current one.*/
+      const diff = daysInTheYear - distanceToDate;
+      distanceToDate = diff;
     }
-  };
+
+    /*Converting difference from ms to out countdown timer date*/
+    let days = Math.floor(
+      distanceToDate / (1000 * 60 * 60 * 24),
+    );
+    let hours = Math.floor(
+      (distanceToDate % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+    );
+    let minutes = Math.floor(
+      (distanceToDate % (1000 * 60 * 60)) / (1000 * 60),
+    );
+    let seconds = Math.floor(
+      (distanceToDate % (1000 * 60)) / 1000,
+    );
+
+    /*Formatting the time if num < 10*/
+    days = formatTime(days);
+    hours = formatTime(hours);
+    minutes = formatTime(minutes);
+    seconds = formatTime(seconds);
+
+    setState({ days: days, hours: hours, minutes, seconds });
+  }, [countdownDate, propsDate]);
 
   return (
     <CountdownStyled>

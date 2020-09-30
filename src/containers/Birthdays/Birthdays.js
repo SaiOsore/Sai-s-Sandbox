@@ -1,112 +1,88 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { 
   BirthdaysStyled,
+  InfoContainer,
+  AvatarContainer,
+  Avatar,
+  InfoText,
+  InfoList,
+  InfoItem,
 } from './BirthdaysStyled';
 import Countdown from '../../components/countdown/Countdown';
-import { dateParser } from '../../helpers/helpers';
-
-const INFO = [
-  {
-    name: 'Sai',
-    date: {
-      day: 17,
-      month: 3,
-      year: 1992,
-    },
-    img: '/',
-  },
-  {
-    name: 'Kazhan',
-    date: {
-      day: 13,
-      month: 10,
-      year: 1996,
-    },
-    img: '/',
-  },
-  {
-    name: 'Sonya Halych',
-    date: {
-      day: 10,
-      month: 10,
-      year: 2009,
-    },
-    img: '/',
-  },
-  {
-    name: 'Mother',
-    date: {
-      day: 21,
-      month: 6,
-      year: 1963,
-    },
-    img: '/',
-  },
-  {
-    name: 'Father',
-    date: {
-      day: 17,
-      month: 3,
-      year: 1965,
-    },
-    img: '/',
-  },
-  {
-    name: 'Brother',
-    date: {
-      day: 20,
-      month: 10,
-      year: 1987,
-    },
-    img: '/',
-  },
-];
-
-const convertMsToYears = (ms) => {
-  const age = Math.floor(ms / 31536000000);
-  return age;
-}
+import { dateParser, convertMsToYears } from '../../helpers/helpers';
+import { BirthdaysInfo } from '../../data/BirthdaysInfo';
 
 const Birthdays = () => {
 
-  const [data, setData] = useState(INFO);
-  const [date, setDate] = useState(new Date());
-
-  let closest;
+  const [data, setData] = useState(BirthdaysInfo);
   let sortedData = [...data];
+  const [closest, setClosest] = useState(data[0]);
+  const [date, setDate] = useState(new Date());
   const currentDay = date.getDate();
   const currentMonth = date.getMonth();
   const currentYear = date.getFullYear();
 
-  sortedData.forEach((d) => {
-    let year = currentYear;
-    if(currentMonth > d.date.month) {
-      year = currentYear + 1;
-    }
-    d.timestamp = new Date(`${d.date.year} ${d.date.month} ${d.date.day}`);
-    d.sortDate = new Date(`${year} ${d.date.month} ${d.date.day}`);
-    d.age = convertMsToYears((date - d.timestamp));
-    d.printDate = dateParser(d.timestamp);
+  useEffect(() => {
+    sortedData.forEach((d) => {
+      /*If this year's birthday has already passed, we change the year by +1*/
+      let year = currentYear;
+      if(currentMonth > d.date.month) {
+        year = currentYear + 1;
+      }
+      /*Fill in the keys and values we need to work with data*/
+      d.timestamp = new Date(`${d.date.year} ${d.date.month} ${d.date.day}`);
+      d.sortDate = new Date(`${year} ${d.date.month} ${d.date.day}`);
+      d.age = convertMsToYears((date - d.timestamp));
+      d.fullDate = dateParser(d.timestamp, 'full');
+      d.printDate = dateParser(d.timestamp);
+    });
+    /*Sorting array ascending order*/
+    sortedData.sort((a, b) => {
+      const distanceA = Math.abs(date - a.sortDate);
+      const distanceB = Math.abs(date - b.sortDate);
+      return distanceA - distanceB;
+    });
 
-  });
+    setClosest(sortedData[0]);
+  }, []);
 
-  sortedData.sort(function(a, b) {
-    var distanceA = Math.abs(date - a.sortDate);
-    var distanceB = Math.abs(date - b.sortDate);
-    return distanceA - distanceB;
-  });
+  const changeClosest = useCallback((item) => {
+    setClosest(item);
+  }, [ closest ]);
 
-  closest = sortedData[0];
+  const ItemsMarkup = data.map((item, index) => (
+    <InfoItem 
+      key={index}
+      onClick={() => {
+        changeClosest(item)
+      }}
+    >
+      <p>Name: {item.name}</p>
+      <p>Age: {item.age}</p>
+      <p>Date: {item.fullDate}</p>
+    </InfoItem>
+  ));
 
   return (
     <BirthdaysStyled>
-      { closest.printDate &&
+      <InfoList>
+        {ItemsMarkup}
+      </InfoList>
+      <InfoContainer>
+        <AvatarContainer>
+          {closest.img !== '' ? 
+            <Avatar src={closest.img} alt='avatar' /> :
+            <Avatar src='/img/birthdays/ava.png' alt='avatar' />
+          }
+        </AvatarContainer>
+        <InfoText>Name: {closest.name}</InfoText>
+        <InfoText>Age: {closest.age}</InfoText>
+      </InfoContainer>
+      {closest.printDate &&
         <Countdown
           propsDate={closest.printDate}
         />
       }
-      <p>{closest.name}</p>
-      <p>{closest.age}</p>
     </BirthdaysStyled>
   );
 }
