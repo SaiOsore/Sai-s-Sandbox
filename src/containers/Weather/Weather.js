@@ -4,9 +4,9 @@ import WeatherApp from '../../components/weatherApp/WeatherApp';
 const Weather = () => {
 
   return (
-    <div className="weather-page">
+    <>
       <WeatherApp />
-    </div>
+    </>
   );
 }
 

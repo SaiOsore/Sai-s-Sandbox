@@ -93,16 +93,12 @@ class WeatherApp extends Component {
           return '#6984e8';
         case 'Rain' :
           return '#24293f';
+        case 'Mist' :
+          return '#4e4e55';
         default :
           return;
       }
     }
-
-/*    let color;
-
-    if(type === 'Clouds') {
-      color = 'grey';
-    }*/
 
     return (
       <WeatherAppStyled>
