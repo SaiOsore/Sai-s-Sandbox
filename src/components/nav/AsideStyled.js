@@ -5,7 +5,7 @@ export const AsideStyled = styled.aside`
   position: absolute;
   top: 50%;
   left: 0%;
-  width: 10vh;
+  min-width: 10vh;
   background-color: ${colorVariables.light};
   border: 2px solid ${colorVariables.dark};
   transform: translateY(-50%);
@@ -23,8 +23,11 @@ export const AsideList = styled.ul`
 `;
 
 export const AsideItem = styled.li`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  height: 10vh;
+  height: 100%;
   border-bottom: 2px solid ${colorVariables.dark};
   &:last-child {
     border-bottom: none;
@@ -43,5 +46,6 @@ export const AsideLink = styled.a`
   justify-content: center;
   width: 100%;
   height: 100%;
+  min-height: 10vh;
   color: ${colorVariables.dark};
 `;

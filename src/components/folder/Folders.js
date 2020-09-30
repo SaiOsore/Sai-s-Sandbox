@@ -1,6 +1,7 @@
 import React from 'react';
 import Folder from '../../components/folder/Folder';
 import Projects from '../../components/projects/Projects';
+import About from '../../components/about/About';
 
 import { showFolder } from '../../actions/index';
 import { connect } from 'react-redux';
@@ -15,7 +16,7 @@ const Folders = ({ showFolder, folders }) => {
       child = <Projects data={thread.items} />;
     }
     if(thread.type === 'about') {
-      child = 'SAI';
+      child = <About />;
     }
 
     return (

@@ -27,7 +27,11 @@ export const MainBannerHeaderWrapper = styled.div`
 export const MainBannerSvgWrapper = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   grid-column: 1 / 2;
+  ${device.tablet} {
+    grid-column: 1 / 4;
+  }
 `;
 
 export const MainBannerRightCol = styled.div`
@@ -43,6 +47,9 @@ export const MainBannerVertical = styled.h2`
   font-size: 4vw;
   text-align: right;
   letter-spacing: 2px;
+  ${device.tablet} {
+    display: none;
+  }
 `;
 
 export const MainBannerSvg = styled.svg`

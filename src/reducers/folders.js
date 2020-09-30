@@ -17,13 +17,13 @@ const initialState = {
       },
       {
         id: '002',
-        icon: 'img/projects/brush.svg',
+        icon: 'img/projects/cloudy.svg',
         title: 'Weather',
         src: '/weather',
       },
       {
         id: '003',
-        icon: 'img/projects/brush.svg',
+        icon: 'img/projects/cake.svg',
         title: 'Birthdays',
         src: '/birthdays',
       },
