@@ -56,27 +56,46 @@ export const InfoText = styled.p`
   font-weight: 700;
 `;
 
-export const InfoList = styled.ul`
+export const InfoListContainer = styled.div`
   position: absolute;
   top: 0;
   right: 0;
   border: 2px solid ${colorVariables.dark};
   background-color: ${colorVariables.light};
+  z-index: 1000;
+`;
+
+export const InfoList = styled.ul`
+  
 `;
 
 export const InfoItem = styled.li`
   display: flex;
-  border-bottom: 2px solid ${colorVariables.dark};
+  border-top: 2px solid ${colorVariables.dark};
   padding: 10px 5px;
   transition: 1s;
   cursor: pointer;
-  &:last-child {
-    border-bottom: none;
-  }
   &:hover {
     background-color: ${colorVariables.secondary};
   }
   & p {
     margin-right: 10px;
   }
+`;
+
+export const InfoListClose = styled.button`
+  width: 100%;
+  padding: 10px 5px;
+  background-color: ${colorVariables.light};
+  border: none;
+  &:hover {
+    background-color: ${colorVariables.secondary};
+  }
+`;
+
+export const InfoButton = styled.button`
+  width: 100%;
+  padding: 10px 5px;
+  border: none;
+  background-color: ${colorVariables.light};
 `;

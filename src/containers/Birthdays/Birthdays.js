@@ -7,6 +7,9 @@ import {
   InfoText,
   InfoList,
   InfoItem,
+  InfoListClose,
+  InfoButton,
+  InfoListContainer,
 } from './BirthdaysStyled';
 import Countdown from '../../components/countdown/Countdown';
 import { dateParser, convertMsToYears } from '../../helpers/helpers';
@@ -16,6 +19,7 @@ const Birthdays = () => {
 
   const [data, setData] = useState(BirthdaysInfo);
   let sortedData = [...data];
+  const [displayList, setDisplayList] = useState(false);
   const [closest, setClosest] = useState({});
   const [date, setDate] = useState(new Date());
   const currentDay = date.getDate();
@@ -54,6 +58,7 @@ const Birthdays = () => {
     <InfoItem 
       key={index}
       onClick={() => {
+        closeShowList()
         changeClosest(item)
       }}
     >
@@ -63,11 +68,34 @@ const Birthdays = () => {
     </InfoItem>
   ));
 
+  const showList = (e) => {
+    const target = e.target;
+    if(displayList) {
+      target.innerText = 'Show list';
+    } else {
+      target.innerText = 'Close list';
+    }
+    setDisplayList(!displayList);
+  }
+
+  const closeShowList = () => {
+    setDisplayList(!displayList);
+  }
+
   return (
     <BirthdaysStyled>
-      <InfoList>
-        {ItemsMarkup}
-      </InfoList>
+      <InfoListContainer>
+        <InfoButton
+          onClick={showList}
+        >
+          Show list
+        </InfoButton>
+        { displayList && 
+          <InfoList>
+            {ItemsMarkup}
+          </InfoList>
+        }
+      </InfoListContainer>
       <InfoContainer>
         <AvatarContainer>
           {closest.img !== '' ? 

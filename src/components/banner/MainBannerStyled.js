@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colorVariables, sizeVariables, device } from '../../theme/variables';
+import { colorVariables, device } from '../../theme/variables';
 
 export const MainBannerStyled = styled.main`
   position: absolute;

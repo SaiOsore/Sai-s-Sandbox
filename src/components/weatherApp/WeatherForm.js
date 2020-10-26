@@ -17,6 +17,7 @@ const Input = styled.input`
   border: 1px solid ${colorVariables.dark};
   padding: 10px;
   border-radius: 10px;
+  font-size: 16px;
   ${device.mobileL} {
     margin-bottom: 15px;
     width: 100%;

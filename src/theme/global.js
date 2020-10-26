@@ -15,5 +15,17 @@ export const GlobalStyle = createGlobalStyle`
     letter-spacing: ${sizeVariables.m.spacing};
     font-family: ${fontVariables.primary};
     overflow-x: hidden;
+    &.grayscale {
+      filter: grayscale(1);
+    }
+    &.blur {
+      filter: blur(1px);
+    }
+    &.hue {
+      filter: hue-rotate(45deg);
+    }
+    &.invert {
+      filter: invert(1);
+    }
   }
 `;

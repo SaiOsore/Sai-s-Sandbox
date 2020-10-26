@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { get } from 'lodash';
 import { colorVariables } from '../../theme/variables';
 import Link from '../links/Link/Link';
 

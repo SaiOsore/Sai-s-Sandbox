@@ -1,1 +1,1 @@
-export const SHOW_FOLDER = 'SHOW_FOLDER';
+export const TOGGLE_FOLDER = 'TOGGLE_FOLDER';

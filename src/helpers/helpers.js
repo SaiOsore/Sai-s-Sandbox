@@ -16,6 +16,12 @@ export const convertMsToYears = (ms) => {
   return age;
 }
 
+export const convertDateForIos = (date) => {
+  const arr = date.split(/[- :]/);
+  date = new Date(arr[0], arr[1]-1, arr[2], arr[3], arr[4], arr[5]);
+  return date;
+}
+
 export  const dateParser = (date, type) => {
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
@@ -38,6 +44,8 @@ export  const dateParser = (date, type) => {
     currentDate = Date.parse(date);
   } else if(type === 'clock') {
     currentDate = `${currentDay} ${hours}:${formatTime(minutes)}`;
+  } else if(type === 'ios') {
+    currentDate = `${currentYear} ${month} ${dayInteger}`;
   } else if(type === 'full') {
     currentDate = `${day} / ${currentMonth} / ${year}`;
   } else {

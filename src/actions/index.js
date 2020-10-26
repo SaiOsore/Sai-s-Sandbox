@@ -1,10 +1,10 @@
 import { 
-  SHOW_FOLDER,
+  TOGGLE_FOLDER,
 } from '../constants/ActionsTypes';
 
-export const showFolder = (id) => {
+export const toggleFolder = (id) => {
   return {
-    type: SHOW_FOLDER,
+    type: TOGGLE_FOLDER,
     id
   }
 }

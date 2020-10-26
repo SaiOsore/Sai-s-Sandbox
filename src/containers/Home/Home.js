@@ -1,16 +1,15 @@
 import React from 'react';
 import Aside from '../../components/nav/Aside';
-import Folders from '../../components/folder/Folders';
 import MainBanner from '../../components/banner/MainBanner';
 import { 
   HomeStyled, 
   HomeWrapper,
   GridPattern 
 } from './HomeStyled';
-import { showFolder } from '../../actions/index';
+import { toggleFolder } from '../../actions/index';
 import { connect } from 'react-redux';
 
-const Home = ({ showFolder }) => {
+const Home = ({ toggleFolder }) => {
 
   const items = [
     {
@@ -18,11 +17,6 @@ const Home = ({ showFolder }) => {
       title: 'Projects',
       id: 'projects',
     },
-    // {
-    //   src: '#',
-    //   title: 'Photos',
-    //   id: 'photos',
-    // },
     {
       src: '#',
       title: 'About',
@@ -39,11 +33,10 @@ const Home = ({ showFolder }) => {
         onClick={(e) => {
           e.preventDefault();
           if(e.target.dataset.id !== undefined) {
-            showFolder(e.target.dataset.id);
+            toggleFolder(e.target.dataset.id);
           }
         }}
       />
-      <Folders />
       <MainBanner />
     </HomeStyled>
   );
@@ -51,7 +44,7 @@ const Home = ({ showFolder }) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    showFolder: (id)=>{dispatch(showFolder(id))},
+    toggleFolder: (id)=>{dispatch(toggleFolder(id))},
   }
 }
 

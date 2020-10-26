@@ -32,7 +32,7 @@ class WeatherApp extends Component {
     const city = e.target.elements.city.value;
 
     if(city) {
-      const cityUrl = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
+      const cityUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
       fetch(cityUrl)
       .then((response) => {
         return response.json();
@@ -47,7 +47,7 @@ class WeatherApp extends Component {
         let setSunsetDate = new Date(sunset * 1000);
         const sunsetDate =  setSunsetDate.toLocaleTimeString();
 
-        const cityIcon = `http://openweathermap.org/img/w/${data.weather[0].icon}.png`;
+        const cityIcon = `https://openweathermap.org/img/w/${data.weather[0].icon}.png`;
 
         this.setState({
           data: data,

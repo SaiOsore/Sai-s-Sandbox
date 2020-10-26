@@ -18,8 +18,16 @@ const Dropdown = (props) => {
   } = props;
 
   const ItemsMarkup = items.map((item, index) => (
-    <DropdownItem key={index}>
-      <DropdownLink target={item.target} href={item.src} title={item.title}>
+    <DropdownItem 
+      key={index} 
+    >
+      <DropdownLink 
+        target={item.target} 
+        href={item.src} 
+        title={item.title}
+        data-id={item.id} 
+        onClick={onClick} 
+      >
         {item.title}
       </DropdownLink>
     </DropdownItem>
@@ -28,12 +36,12 @@ const Dropdown = (props) => {
   return (
     <DropdownStyled
       className={className}
-      onClick={onClick}
       as={tag}
       color={color}
       hovercolor={hoverColor}
       display={display}
     >
+      {children}
       {ItemsMarkup}
     </DropdownStyled>
   );

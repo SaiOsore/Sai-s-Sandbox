@@ -2,23 +2,26 @@ import React from 'react';
 import Folder from '../../components/folder/Folder';
 import Projects from '../../components/projects/Projects';
 import About from '../../components/about/About';
+import Settings from '../../components/settings/Settings';
 
-import { showFolder } from '../../actions/index';
+import { toggleFolder } from '../../actions/index';
 import { connect } from 'react-redux';
 
-const Folders = ({ showFolder, folders }) => {
+const Folders = ({ toggleFolder, folders }) => {
 
   const FoldersMarkup = Object.entries(folders).map(([key, thread]) => {
-
-    let child;
-
-    if(thread.type === 'projects') {
-      child = <Projects data={thread.items} />;
+    const child = () => {
+      switch(thread.type) {
+        case 'projects' :
+          return <Projects data={thread.items} />;
+        case 'about' :
+          return <About />;
+        case 'settings' :
+          return <Settings />;
+        default :
+          return;
+      }
     }
-    if(thread.type === 'about') {
-      child = <About />;
-    }
-
     return (
       thread.showed && 
         <Folder 
@@ -26,9 +29,9 @@ const Folders = ({ showFolder, folders }) => {
           id={thread.id}
           folderTheme={thread.folderTheme}
           onClose={() => {
-            showFolder(key);
+            toggleFolder(key);
           }}
-          children={child}
+          children={child()}
         />
       )
   });
@@ -48,7 +51,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    showFolder: (id)=>{dispatch(showFolder(id))},
+    toggleFolder: (id)=>{dispatch(toggleFolder(id))},
   }
 }
 

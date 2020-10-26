@@ -1,5 +1,5 @@
 import { 
-  SHOW_FOLDER,
+  TOGGLE_FOLDER,
 } from '../constants/ActionsTypes';
 
 const initialState = {
@@ -26,6 +26,18 @@ const initialState = {
         icon: 'img/projects/cake.svg',
         title: 'Birthdays',
         src: '/birthdays',
+      },
+      {
+        id: '004',
+        icon: 'img/projects/canvas.svg',
+        title: 'Canvas',
+        src: '/canvas',
+      },
+      {
+        id: '005',
+        icon: 'img/projects/harry-potter.svg',
+        title: 'Harry Potter',
+        src: '/harrypotter',
       },
     ],
   },
@@ -61,11 +73,17 @@ const initialState = {
     showed: false,
     folderTheme: 'Third',
   },
+  'settings': {
+    type: 'settings',
+    id: 'settings',
+    showed: false,
+    folderTheme: 'Third',
+  },
 }
 
 const foldersReducer = (state = initialState, action) => {
   switch(action.type) {
-    case SHOW_FOLDER :
+    case TOGGLE_FOLDER :
       state[action.id].showed = !state[action.id].showed;
       return {
         ...state

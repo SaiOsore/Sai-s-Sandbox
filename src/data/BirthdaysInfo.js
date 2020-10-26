@@ -33,7 +33,7 @@ export const BirthdaysInfo = [
       month: 6,
       year: 1963,
     },
-    img: '',
+    img: '/img/birthdays/m.jpg',
   },
   {
     name: 'Father',
@@ -42,7 +42,7 @@ export const BirthdaysInfo = [
       month: 3,
       year: 1965,
     },
-    img: '',
+    img: '/img/birthdays/p.jpg',
   },
   {
     name: 'Brother',
@@ -51,6 +51,6 @@ export const BirthdaysInfo = [
       month: 10,
       year: 1987,
     },
-    img: '',
+    img: '/img/birthdays/b.jpg',
   },
 ];
