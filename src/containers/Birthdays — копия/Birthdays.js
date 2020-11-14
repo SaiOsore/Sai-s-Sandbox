@@ -1,9 +1,4 @@
-import React, 
-{ useEffect, 
-  useState, 
-  useCallback, 
-  useRef, 
-} from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { 
   BirthdaysStyled,
   InfoContainer,
@@ -12,6 +7,7 @@ import {
   InfoText,
   InfoList,
   InfoItem,
+  InfoListClose,
   InfoButton,
   InfoListContainer,
 } from './BirthdaysStyled';
@@ -21,38 +17,29 @@ import { BirthdaysInfo } from '../../data/BirthdaysInfo';
 
 const Birthdays = () => {
 
-  const data = BirthdaysInfo;
+  const [data, setData] = useState(BirthdaysInfo);
   let sortedData = [...data];
   const [displayList, setDisplayList] = useState(false);
   const [closest, setClosest] = useState({});
-  const date = new Date();
+  const [date, setDate] = useState(new Date());
   const currentDay = date.getDate();
   const currentMonth = date.getMonth();
   const currentYear = date.getFullYear();
-  const infoBtn = useRef();
 
   useEffect(() => {
     sortedData.forEach((d) => {
+      /*If this year's birthday has already passed, we change the year by +1*/
       let year = currentYear;
-      /*(d.date.month - 1) cause monthes in js start from 0.*/
-      d.date.month = d.date.month - 1;
-
       if(currentMonth > d.date.month) {
-        year++;
-      }
-
-      if(currentMonth === d.date.month && currentDay >= d.date.day) {
-        year++;
+        year = currentYear + 1;
       }
       /*Fill in the keys and values we need to work with data*/
-      /*We changed back the month to + 1 for timestamp*/
-      d.timestamp = new Date(`${d.date.year} ${d.date.month + 1} ${d.date.day}`);
+      d.timestamp = new Date(`${d.date.year} ${d.date.month} ${d.date.day}`);
       d.sortDate = new Date(`${year} ${d.date.month} ${d.date.day}`);
-      d.age = convertMsToYears((Date.now() - d.timestamp));
+      d.age = convertMsToYears((date - d.timestamp));
       d.fullDate = dateParser(d.timestamp, 'full');
       d.printDate = dateParser(d.timestamp);
     });
-
     /*Sorting array ascending order*/
     sortedData.sort((a, b) => {
       const distanceA = Math.abs(date - a.sortDate);
@@ -61,18 +48,17 @@ const Birthdays = () => {
     });
 
     setClosest(sortedData[0]);
-    console.log(currentMonth, sortedData[0].date.month);
   }, []);
 
   const changeClosest = useCallback((item) => {
     setClosest(item);
-  }, []);
+  }, [ closest ]);
 
   const ItemsMarkup = data.map((item, index) => (
     <InfoItem 
       key={index}
       onClick={() => {
-        toggleList()
+        closeShowList()
         changeClosest(item)
       }}
     >
@@ -82,12 +68,17 @@ const Birthdays = () => {
     </InfoItem>
   ));
 
-  const toggleList = () => {
+  const showList = (e) => {
+    const target = e.target;
     if(displayList) {
-      infoBtn.current.innerText = 'Show list';
+      target.innerText = 'Show list';
     } else {
-      infoBtn.current.innerText = 'Close list';
+      target.innerText = 'Close list';
     }
+    setDisplayList(!displayList);
+  }
+
+  const closeShowList = () => {
     setDisplayList(!displayList);
   }
 
@@ -95,14 +86,13 @@ const Birthdays = () => {
     <BirthdaysStyled>
       <InfoListContainer>
         <InfoButton
-          ref={infoBtn}
-          onClick={toggleList}
+          onClick={showList}
         >
           Show list
         </InfoButton>
         { displayList && 
           <InfoList>
-            { ItemsMarkup }
+            {ItemsMarkup}
           </InfoList>
         }
       </InfoListContainer>

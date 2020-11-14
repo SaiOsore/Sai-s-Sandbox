@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { 
   colorVariables, 
   headerHeight, 
+  sizeVariables, 
   device, 
 } from '../../theme/variables';
 import { CountdownStyled } from '../../components/countdown/CountdownStyled';

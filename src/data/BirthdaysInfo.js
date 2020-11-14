@@ -9,6 +9,15 @@ export const BirthdaysInfo = [
     img: '/img/birthdays/Sai.jpg',
   },
   {
+    name: 'Test',
+    date: {
+      day: 14,
+      month: 11,
+      year: 1996,
+    },
+    img: '',
+  },
+  {
     name: 'Kazhan',
     date: {
       day: 13,

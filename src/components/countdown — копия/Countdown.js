@@ -59,11 +59,6 @@ const Countdown = ({ propsDate }) => {
     setState({ days: days, hours: hours, minutes, seconds });
   }, [countdownDate, propsDate]);
 
-  /*Show countdown timer at first render*/
-  useEffect(() => {
-    setNewTime();
-  }, [setNewTime]);
-
   useEffect(() => {
     /*Rerender function will be delayed by the timeout*/
     let timer = setInterval(() => setNewTime(), 1000);

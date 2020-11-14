@@ -12,7 +12,15 @@ export const formatTime = (time) => {
 }
 
 export const convertMsToYears = (ms) => {
-  const age = Math.floor(ms / 31536000000);
+  const currentYear = new Date().getFullYear();
+  const isLeap = new Date(currentYear, 1, 29).getMonth() === 1;
+  let time; 
+  if(isLeap) {
+    time = 31622400000;
+  } else {
+    time = 31556952000;
+  }
+  const age = Math.floor(ms / time);
   return age;
 }
 
@@ -44,8 +52,6 @@ export  const dateParser = (date, type) => {
     currentDate = Date.parse(date);
   } else if(type === 'clock') {
     currentDate = `${currentDay} ${hours}:${formatTime(minutes)}`;
-  } else if(type === 'ios') {
-    currentDate = `${currentYear} ${month} ${dayInteger}`;
   } else if(type === 'full') {
     currentDate = `${day} / ${currentMonth} / ${year}`;
   } else {
