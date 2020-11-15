@@ -11,7 +11,7 @@ export const BirthdaysInfo = [
   {
     name: 'Test',
     date: {
-      day: 14,
+      day: 1,
       month: 11,
       year: 1996,
     },

@@ -1,5 +1,6 @@
 import React, 
-{ useEffect, 
+{ 
+  useEffect, 
   useState, 
   useCallback, 
   useRef, 
@@ -16,7 +17,10 @@ import {
   InfoListContainer,
 } from './BirthdaysStyled';
 import Countdown from '../../components/countdown/Countdown';
-import { dateParser, convertMsToYears } from '../../helpers/helpers';
+import { 
+  dateParser, 
+  convertMsToYears, 
+} from '../../helpers/helpers';
 import { BirthdaysInfo } from '../../data/BirthdaysInfo';
 
 const Birthdays = () => {
@@ -35,20 +39,27 @@ const Birthdays = () => {
     sortedData.forEach((d) => {
       let year = currentYear;
       /*(d.date.month - 1) cause monthes in js start from 0.*/
-      d.date.month = d.date.month - 1;
+      const dateMonth = d.date.month - 1;
 
-      if(currentMonth > d.date.month) {
+      const monthDiff = currentMonth > dateMonth;
+      const monthEqual = currentMonth === dateMonth;
+      const dayDiff = currentDay >= d.date.day;
+
+      if(monthDiff) {
         year++;
       }
 
-      if(currentMonth === d.date.month && currentDay >= d.date.day) {
+      if(monthEqual && dayDiff) {
         year++;
       }
+
       /*Fill in the keys and values we need to work with data*/
-      /*We changed back the month to + 1 for timestamp*/
-      d.timestamp = new Date(`${d.date.year} ${d.date.month + 1} ${d.date.day}`);
-      d.sortDate = new Date(`${year} ${d.date.month} ${d.date.day}`);
+      d.timestamp = new Date(`${d.date.year} ${d.date.month} ${d.date.day}`);
       d.age = convertMsToYears((Date.now() - d.timestamp));
+      if(monthEqual && dayDiff) {
+        d.age = d.age + 1;
+      }
+      d.sortDate = new Date(`${year} ${d.date.month} ${d.date.day}`);
       d.fullDate = dateParser(d.timestamp, 'full');
       d.printDate = dateParser(d.timestamp);
     });
@@ -61,7 +72,7 @@ const Birthdays = () => {
     });
 
     setClosest(sortedData[0]);
-    console.log(currentMonth, sortedData[0].date.month);
+    
   }, []);
 
   const changeClosest = useCallback((item) => {
