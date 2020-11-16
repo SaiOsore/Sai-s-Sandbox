@@ -33,7 +33,7 @@ const Drawing = (props) => {
   const [width, height] = useWindowSize(initialDivider);
   const [canvasImg, setCanvasImg] = useState(null);
 
-  const drawLine = (x1, y1, x2, y2) => {
+  const drawLine = useCallback((x1, y1, x2, y2) => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     ctx.beginPath();
@@ -42,16 +42,16 @@ const Drawing = (props) => {
     ctx.strokeStyle = color;
     ctx.lineWidth = size;
     ctx.stroke();
-  };
+  }, [color, size]);
 
-  const drawCircle = (x, y) => {
+  const drawCircle = useCallback((x, y) => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     ctx.beginPath();
     ctx.arc(x, y, size / 2, 0, Math.PI * 2);
     ctx.fillStyle = color;
     ctx.fill();
-  };
+  }, [color, size]);
 
   const startPaint = useCallback((event) => {
     setIsPainting(true);
@@ -62,8 +62,7 @@ const Drawing = (props) => {
     setPoints(points => [...points, {x: newX, y: newY, size: size, color: color, mode: "begin"}]);
   }, [color, size]);
 
-  const paint = useCallback(
-    (event) => {
+  const paint = useCallback((event) => {
       if(isPainting) {
         const canvas = canvasRef.current;
         let newX = event.offsetX;
@@ -72,7 +71,7 @@ const Drawing = (props) => {
         drawLine(x, y, newX, newY);
         setX(newX);
         setY(newY);
-        setPoints(points => [...points, {x: newX, y: newY, size: size, color: color, mode: "draw"}]);
+        setPoints((points) => [...points, {x: newX, y: newY, size: size, color: color, mode: "draw"}]);
         setCanvasImg(canvas.toDataURL('image/png'));
       }
     },
@@ -82,7 +81,7 @@ const Drawing = (props) => {
   const exitPaint = useCallback((event) => {
     let newX = event.offsetX;
     let newY = event.offsetY;
-    setPoints(points => [...points, {x: newX, y: newY, size: size, color: color, mode: "end"}]);
+    setPoints((points) => [...points, {x: newX, y: newY, size: size, color: color, mode: "end"}]);
     setIsPainting(false);
     setX(undefined);
     setY(undefined);
@@ -210,7 +209,10 @@ const Drawing = (props) => {
         <ColorInput 
           ref={inputColorRef} 
           type="color" 
-          onChange={changeColor} 
+          onChange={() => {
+            changeColor();
+            brush();
+          }} 
           title={'color picker'}
         />
         <Button onClick={undoLast} title={'undo'}>
