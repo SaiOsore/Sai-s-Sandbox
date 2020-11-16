@@ -10,6 +10,7 @@ export const DropdownStyled = styled.ul`
   background-color: ${colorVariables.light};
   border: 2px solid ${colorVariables.dark};
   box-shadow: ${colorVariables.shadow};
+  z-index: 100;
   &.active {
     display: block;
   }

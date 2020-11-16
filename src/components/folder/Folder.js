@@ -11,7 +11,6 @@ const Folder = (props) => {
   const {
     id,
     className,
-    onClick,
     tag,
     children,
     hoverColor,
@@ -24,7 +23,6 @@ const Folder = (props) => {
   return (
     <FolderStyled
       className={className}
-      onClick={onClick}
       as={tag}
       color={color}
       hovercolor={hoverColor}

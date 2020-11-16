@@ -13,7 +13,14 @@ const Folders = ({ toggleFolder, folders }) => {
     const child = () => {
       switch(thread.type) {
         case 'projects' :
-          return <Projects data={thread.items} />;
+          return  <Projects 
+                    onClose={() => {
+                      toggleFolder(key);
+                    }} 
+                    data={
+                      thread.items
+                    } 
+                  />;
         case 'about' :
           return <About />;
         case 'settings' :
@@ -38,7 +45,7 @@ const Folders = ({ toggleFolder, folders }) => {
 
   return (
     <>
-      {FoldersMarkup}
+      { FoldersMarkup }
     </>
   );
 }

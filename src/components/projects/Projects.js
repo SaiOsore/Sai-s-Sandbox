@@ -9,6 +9,7 @@ import {
 const Projects = (props) => {
   const {
     data,
+    onClose,
   } = props;
 
   let dataMarkup;
@@ -18,7 +19,11 @@ const Projects = (props) => {
       return (
         <ProjectsItem key={index}>
           <ProjectsImg src={item.icon} alt={item.title} />
-          <ProjectsLink href={item.src} title={item.title}>
+          <ProjectsLink 
+            href={item.src} 
+            title={item.title}
+            onClick={onClose}
+          >
             <span>
               {item.title}
             </span>

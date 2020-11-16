@@ -61,7 +61,7 @@ export const InfoListContainer = styled.div`
   right: 0;
   border: 2px solid ${colorVariables.dark};
   background-color: ${colorVariables.light};
-  z-index: 1000;
+  z-index: 22;
 `;
 
 export const InfoList = styled.ul`

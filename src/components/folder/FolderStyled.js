@@ -3,6 +3,8 @@ import { get } from 'lodash';
 import { colorVariables, device } from '../../theme/variables';
 import Button  from '../buttons/Button';
 
+const headerSize = '42px';
+
 const FolderVar = {
   First: { top: '200px', left: '50%' },
   Second: { top: '30%', left: '35%' },
@@ -20,17 +22,16 @@ export const FolderStyled = styled.section`
   background: ${colorVariables.light};
   border: 2px solid ${colorVariables.dark};
   box-shadow: ${colorVariables.shadow};
-  z-index: 10;
+  z-index: 33;
   cursor: crosshair;
   ${device.tablet} {
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    min-height: calc(100vh - 40px);
   }
 `;
-
-const headerSize = '42px';
 
 export const FolderHeader = styled.header`
   position: relative;

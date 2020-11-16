@@ -3,9 +3,6 @@ import Button from '../buttons/Button';
 import { colorVariables, device, headerHeight } from '../../theme/variables';
 
 export const HeaderStyled = styled.header`
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: ${headerHeight};
   background-color: ${colorVariables.secondary};
