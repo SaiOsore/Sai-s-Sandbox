@@ -54,12 +54,12 @@ const Birthdays = () => {
       }
 
       /*Fill in the keys and values we need to work with data*/
-      d.timestamp = new Date(`${d.date.year} ${d.date.month} ${d.date.day}`);
+      d.timestamp = new Date(`${d.date.year}/${d.date.month}/${d.date.day}`);
       d.age = convertMsToYears((Date.now() - d.timestamp));
       if(monthEqual && dayDiff) {
         d.age = d.age + 1;
       }
-      d.sortDate = new Date(`${year} ${d.date.month} ${d.date.day}`);
+      d.sortDate = new Date(`${year}/${d.date.month}/${d.date.day}`);
       d.fullDate = dateParser(d.timestamp, 'full');
       d.printDate = dateParser(d.timestamp);
     });
