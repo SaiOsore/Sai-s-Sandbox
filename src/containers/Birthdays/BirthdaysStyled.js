@@ -21,6 +21,20 @@ export const BirthdaysStyled = styled.div`
 
 export const InfoContainer = styled.div`
   margin-bottom: 5vh;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 50px 10px;
+  justify-content: center;
+  width: 100%;
+`;
+
+export const InfoBlock = styled.div`
+  margin: 0 20px;
+  text-align: center;
+  ${device.tabletL} {
+    width: calc(50% - 40px);
+  }
+}
 `;
 
 export const AvatarContainer = styled.div`
@@ -59,13 +73,17 @@ export const InfoListContainer = styled.div`
   position: absolute;
   top: 0;
   right: 0;
+  width: 430px;
   border: 2px solid ${colorVariables.dark};
   background-color: ${colorVariables.light};
   z-index: 22;
+  ${device.tabletL} {
+    width: 100%;
+  }
 `;
 
 export const InfoList = styled.ul`
-  
+  width: 100%;
 `;
 
 export const InfoItem = styled.li`
@@ -79,6 +97,7 @@ export const InfoItem = styled.li`
   }
   & p {
     margin-right: 10px;
+    flex: 33%;
   }
 `;
 

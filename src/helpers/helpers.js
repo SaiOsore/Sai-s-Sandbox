@@ -31,7 +31,7 @@ export const convertDateForIos = (date) => {
   return date;
 }
 
-export  const dateParser = (date, type) => {
+export const dateParser = (date, type) => {
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
@@ -60,4 +60,13 @@ export  const dateParser = (date, type) => {
   }
 
   return currentDate;
+}
+
+export const sortFunction = (data, compare) => {
+  data.sort((a, b) => {
+    const distanceA = Math.abs(compare - a.sortDate);
+    const distanceB = Math.abs(compare - b.sortDate);
+    return distanceA - distanceB;
+  });
+  return data;
 }

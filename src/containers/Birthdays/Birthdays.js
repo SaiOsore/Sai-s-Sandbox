@@ -1,5 +1,4 @@
-import React, 
-{ 
+import React, { 
   useEffect, 
   useState, 
   useCallback, 
@@ -8,6 +7,7 @@ import React,
 import { 
   BirthdaysStyled,
   InfoContainer,
+  InfoBlock,
   AvatarContainer,
   Avatar,
   InfoText,
@@ -20,15 +20,16 @@ import Countdown from '../../components/countdown/Countdown';
 import { 
   dateParser, 
   convertMsToYears, 
+  sortFunction, 
 } from '../../helpers/helpers';
 import { BirthdaysInfo } from '../../data/BirthdaysInfo';
 
 const Birthdays = () => {
 
   const data = BirthdaysInfo;
-  let sortedData = [...data];
   const [displayList, setDisplayList] = useState(false);
   const [closest, setClosest] = useState({});
+  const [result, setResult] = useState([]);
   const date = new Date();
   const currentDay = date.getDate();
   const currentMonth = date.getMonth();
@@ -36,11 +37,11 @@ const Birthdays = () => {
   const infoBtn = useRef();
 
   useEffect(() => {
-    sortedData.forEach((d) => {
+    data.forEach((d) => {
       let year = currentYear;
       /*(d.date.month - 1) cause monthes in js start from 0.*/
       const dateMonth = d.date.month - 1;
-
+      /*Boolean conditions*/
       const monthDiff = currentMonth > dateMonth;
       const monthEqual = currentMonth === dateMonth;
       const dayDiff = currentDay >= d.date.day;
@@ -56,6 +57,8 @@ const Birthdays = () => {
       /*Fill in the keys and values we need to work with data*/
       d.timestamp = new Date(`${d.date.year}/${d.date.month}/${d.date.day}`);
       d.age = convertMsToYears((Date.now() - d.timestamp));
+      /*We return the difference of months, if the month is the same, 
+      but the day has already passed*/
       if(monthEqual && dayDiff) {
         d.age = d.age + 1;
       }
@@ -65,19 +68,36 @@ const Birthdays = () => {
     });
 
     /*Sorting array ascending order*/
-    sortedData.sort((a, b) => {
-      const distanceA = Math.abs(date - a.sortDate);
-      const distanceB = Math.abs(date - b.sortDate);
-      return distanceA - distanceB;
+    const sortedData = sortFunction(data, date);
+    /*Finding the same birthdays and push them to result array*/
+    sortedData.map((d) => {
+      if(d.date.day === sortedData[0].date.day && d.date.month === sortedData[0].date.month) {
+        result.push(d);
+      }
+      return result;
     });
-
+    /*Set closest*/
     setClosest(sortedData[0]);
     
   }, []);
 
   const changeClosest = useCallback((item) => {
     setClosest(item);
+    setResult([item]);
   }, []);
+
+  const InfoBlocksMarkup = result.map((item, index) => (
+    <InfoBlock key={index}>
+      <AvatarContainer>
+        {item.img !== '' ? 
+          <Avatar src={item.img} alt='avatar' /> :
+          <Avatar src='/img/birthdays/ava.png' alt='avatar' />
+        }
+      </AvatarContainer>
+      <InfoText>Name: {item.name}</InfoText>
+      <InfoText>Age: {item.age}</InfoText>
+  </InfoBlock>
+  ));
 
   const ItemsMarkup = data.map((item, index) => (
     <InfoItem 
@@ -118,14 +138,7 @@ const Birthdays = () => {
         }
       </InfoListContainer>
       <InfoContainer>
-        <AvatarContainer>
-          {closest.img !== '' ? 
-            <Avatar src={closest.img} alt='avatar' /> :
-            <Avatar src='/img/birthdays/ava.png' alt='avatar' />
-          }
-        </AvatarContainer>
-        <InfoText>Name: {closest.name}</InfoText>
-        <InfoText>Age: {closest.age}</InfoText>
+        { InfoBlocksMarkup }
       </InfoContainer>
       {closest.printDate &&
         <Countdown
