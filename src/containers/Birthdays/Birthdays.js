@@ -96,7 +96,7 @@ const Birthdays = () => {
       </AvatarContainer>
       <InfoText>Name: {item.name}</InfoText>
       <InfoText>Age: {item.age}</InfoText>
-  </InfoBlock>
+    </InfoBlock>
   ));
 
   const ItemsMarkup = data.map((item, index) => (
@@ -140,7 +140,7 @@ const Birthdays = () => {
       <InfoContainer>
         { InfoBlocksMarkup }
       </InfoContainer>
-      {closest.printDate &&
+      { closest.printDate &&
         <Countdown
           propsDate={closest.printDate}
         />
