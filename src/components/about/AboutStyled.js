@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { 
   colorVariables, 
-  headerHeight, 
   device, 
 } from '../../theme/variables';
 
@@ -35,4 +34,6 @@ export const AboutText = styled.p`
   margin-bottom: 1rem;
   font-size: 3vh;
   font-weight: 700;
+  text-align: center;
+  line-height: 1.5;
 `;

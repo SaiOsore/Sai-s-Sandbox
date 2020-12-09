@@ -14,7 +14,7 @@ const About = () => {
         <AboutAvatar src='/img/birthdays/Sai.jpg' alt='avatar' />
       </AboutAvatarContainer>
       <AboutText>
-        Hello! My name is Sai and this is my react sandbox. Good luck!
+        Hello! My nickname is Sai and this is my react.js sandbox. Thanks for attention!
       </AboutText>
     </AboutStyled>
   );
